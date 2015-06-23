@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- texto reemplazado desde el enrutador -->
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <form action="answer" method="get">
+      <h1>Quiz: el juego de las preguntas</h1>
+      <p>Pregunta: <%= Titulo %></p>
+      <input type="text" name="respuesta" autocomplete="off" required="true"
+        placeholder="Introduzca la respuesta" />
+      <input type="submit" id="btnEnviar" value="Enviar" />
+    </form>
+  </body>
+</html>
