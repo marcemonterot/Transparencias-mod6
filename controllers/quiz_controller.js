@@ -1,3 +1,5 @@
+//toda accion de un controlador que responda a un GET tiene una vista asociada
+
 exports.question=function(req,res)
 {
   res.render('quizes/question',{Titulo:'Capital de Italia', title:'Pregunta'});

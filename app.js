@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var expressPartials = require('express-partials')
 
 //importamos los enrutaores
 var routes = require('./routes/index');
@@ -24,6 +25,8 @@ app.set('view engine', 'ejs');
 //se descomenta para montar el middleware del favicon
 app.use(favicon(__dirname + '/public/favicon.ico'));
 //instalar los middlewares predefinidos
+//es una factoria que se debe invocar para crear el middleware
+app.use(expressPartials());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
