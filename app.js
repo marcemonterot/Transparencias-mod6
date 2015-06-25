@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//para crear master pages
 var expressPartials = require('express-partials')
 
 //importamos los enrutaores

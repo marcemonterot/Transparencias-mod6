@@ -5,6 +5,7 @@ var router = express.Router();
 
 //importo el quiz controller en el index que es desde donde se gestionara
 var quizController=require('../controllers/quiz_controller.js')
+var authorsController=require('../controllers/autores_controller.js')
 
 /* GET home page. */
 //renderiaza el index.ejs
@@ -20,5 +21,8 @@ router.get('/quizes/question', quizController.question);
 
 //get para la respuesta
 router.get('/quizes/answer', quizController.answer);
+
+//get para os autores
+router.get('/author', authorsController.autores);
 
 module.exports = router;
