@@ -30,15 +30,14 @@ var sequelize = new Sequelize (DB_name,user,pwd,
 //importo la definicion del modelo quiz.js, la tabla QUIZ
 var Quiz=sequelize.import(path.join(__dirname,'quiz'));
 
-//exporto la definicion para que la puedan usar los controladores
-//actuar sobre la tabla QUIZ
-exports.Quiz=Quiz;
+
 
 //sincronizo la definicion del modelo con la base de datos quiz.sqlite
 //por si no esta creada la tabla o se ha actualizado
 sequelize.sync().success(function(){
     Quiz.count().success(function(count){
       console.log(count);
+      Quiz.count=count;
       if (count===0){
         //inserta una nueva fila
         Quiz.create({
@@ -54,3 +53,7 @@ sequelize.sync().success(function(){
       };
     });
 });
+
+//exporto la definicion para que la puedan usar los controladores
+//actuar sobre la tabla QUIZ
+exports.Quiz=Quiz;

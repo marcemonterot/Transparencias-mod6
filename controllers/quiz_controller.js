@@ -29,9 +29,22 @@ exports.question=function(req,res)
 //esta funcion me mostrará todas las preguntas de la tabla preguntas base de datos
 exports.index=function(req,res)
 {
-    models.Quiz.findAll().then(function(quizes){
-    res.render('quizes/index',{quizes:quizes});
-  });
+   var objeSearch={};
+    if(req.query.search!==undefined){
+      var re=new RegExp(' ','g');
+      var auxSearch='%'+req.query.search.replace(re,'%')+'%';
+      console.log(auxSearch);
+      objeSearch={where: ["pregunta like ?", auxSearch]};
+    }
+    models.Quiz.findAll(objeSearch).then(function(quizes){
+      var visib='inline';
+      if (models.Quiz.count===quizes.length) {
+        visib='none';
+      };
+      res.render('quizes/index',{quizes:quizes, visibilidad:visib});
+    });
+
+
 }
 
 //esta funcion me mostrar la pregunta recuperada que se le pasa en la ur

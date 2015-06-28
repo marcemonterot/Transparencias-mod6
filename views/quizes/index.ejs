@@ -1,5 +1,13 @@
+<form action="/quizes" method="get">
+  <input type="text" name="search" required="true"
+    placeholder="Pregunta a buscar" />
+  <input type="submit" id="btnBuscar" value="Buscar" />
+</form>
 <ul>
   <% for (var i=0;i<quizes.length;i++)  { %>
     <li><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></li>
   <% } %>
 <ul>
+<br /><br />
+<input type="button" id="btnTodas" value="Todas" style="display:<%= visibilidad %>"
+  onclick="window.location.href='/quizes'" />
