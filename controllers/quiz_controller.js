@@ -34,7 +34,7 @@ exports.index=function(req,res)
       var re=new RegExp(' ','g');
       var auxSearch='%'+req.query.search.replace(re,'%')+'%';
       console.log(auxSearch);
-      objeSearch={where: ["pregunta like ?", auxSearch]};
+      objeSearch={where: ["LOWER(pregunta) LIKE ?", auxSearch.toLowerCase()]};
     }
     models.Quiz.findAll(objeSearch).then(function(quizes){
       var visib='inline';
