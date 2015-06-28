@@ -34,7 +34,7 @@ exports.index=function(req,res)
       var re=new RegExp(' ','g');
       var auxSearch='%'+req.query.search.replace(re,'%')+'%';
       console.log(auxSearch);
-      objeSearch={where: ["pregunta COLLATE UTF8_GENERAL_CI LIKE ?", auxSearch]};
+      objeSearch={where: ["pregunta like ?", auxSearch]};
     }
     models.Quiz.findAll(objeSearch).then(function(quizes){
       var visib='inline';
