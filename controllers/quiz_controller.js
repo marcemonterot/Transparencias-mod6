@@ -97,7 +97,7 @@ exports.new=function(req,res){
   var quiz=models.Quiz.build(
     { pregunta:'inserte el titulo', respuesta:'inserte la respuesta' }
   );
-  res.render('quizes/new',{quiz:quiz, errors:[]});
+  res.render('quizes/new',{quiz:quiz, errors:[], edicion:false});
 }
 
 exports.create=function(req,res){
@@ -108,19 +108,6 @@ exports.create=function(req,res){
   var quiz=models.Quiz.build(req.body.quiz);
   //se llama al metodo de insercion de sequelize donde se mapean los campos
   //con las propieades
-  /*quiz.validate().then(function(err){
-                  if (err)
-                  {
-                      res.render('quizes/new',{quiz:quiz, errors:err.errors});
-                  }
-                  else {
-                    quiz.save({fields:["pregunta","respuesta"]}).then(function(){
-                          models.Quiz.count++;
-                        //cuando se acaba redirecciona al listado de preguntas
-                          res.redirect('/quizes');
-                        });
-                  }
-                });*/
     quiz
     .validate()
     .then(
@@ -135,6 +122,38 @@ exports.create=function(req,res){
                   //cuando se acaba redirecciona al listado de preguntas
                   res.redirect('/quizes')})
         }      // res.redirect: Redirección HTTP a lista de preguntas
+      }
+    ).catch(function(error){next(error)});
+}
+
+//funcion controladora para la edicion
+exports.edit=function(req,res){
+  var quiz=req.quiz;
+  res.render('quizes/edit',{quiz:quiz, errors:[], edicion:true});
+}
+
+
+exports.update=function(req,res){
+  //var quiz=models.Quiz.build(req.body.quiz);
+  //se setean las propiedades de req.quiz que es objeto recuperado con el
+  //autoload
+  req.quiz.pregunta=req.body.quiz.pregunta;
+  req.quiz.respuesta=req.body.quiz.respuesta;
+  //se llama al metodo de insercion de sequelize donde se mapean los campos
+  //con las propieades
+    req.quiz
+    .validate()
+    .then(
+      function(err){
+        if (err) {
+          res.render('quizes/'+quiz.id+'/edit', {quiz: quiz, errors: err.errors});
+        } else {
+          req.quiz // save: guarda en DB campos pregunta y respuesta de quiz
+          .save({fields: ["pregunta", "respuesta"]})
+          .then( function(){
+                  //cuando se acaba redirecciona al listado de preguntas
+                  res.redirect('/quizes')})
+        }
       }
     ).catch(function(error){next(error)});
 }

@@ -1,12 +1,26 @@
 <p>
   <label form="preg" class="rem">Pregunta:</label>
-  <input type="text" placeholder="<%=quiz.pregunta %>"
-  name="quiz[pregunta]" required="true">
+  <% if (edicion){ %>
+    <input type="text" value="<%=quiz.pregunta %>"
+    name="quiz[pregunta]" required="true">
+  <%}
+  else
+  { %>
+    <input type="text" placeholder="<%=quiz.pregunta %>"
+    name="quiz[pregunta]" required="true">
+  <% } %>
 </p>
 <p>
   <label form="preg" class="rem">Respuesta:</label>
-  <input type="text" placeholder="<%=quiz.respuesta %>"
-  name="quiz[respuesta]" >
+  <% if (edicion){ %>
+    <input type="text" value="<%=quiz.respuesta %>"
+    name="quiz[respuesta]" required="true">
+  <%}
+  else
+  { %>
+    <input type="text" placeholder="<%=quiz.respuesta %>"
+    name="quiz[respuesta]" required="true">
+  <% } %>
 </p>
 <p>
   <a href="/quizes"><button type="button">Cancelar</button></a>

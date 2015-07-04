@@ -7,7 +7,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 //para crear master pages
-var expressPartials = require('express-partials')
+var expressPartials = require('express-partials');
+//para encapsular los metodos PUT y DELETE sobre un POST en el action del submit
+//var connect=require('connect');
+var methodOverride = require('method-override');
 
 //importamos los enrutaores
 var routes = require('./routes/index');
@@ -36,6 +39,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//se usa el middleware para los PUT y DELETE en el POST
+app.use(methodOverride('_method'));
 
 //instalar los enrutadores a la pagina de
 //index y a la de users. tambien se puede instalar con get

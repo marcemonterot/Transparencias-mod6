@@ -41,7 +41,13 @@ router.get('/quizes/new', quizController.new);
 //de la insercion de la pregunta
 router.post('/quizes/create',quizController.create);
 
-//get para os autores
+//usamos este middleware para coger la pregunta a editar
+router.get('/quizes/:idpregunta(\\d+)/edit', quizController.edit);
+
+//usamos este middleware para HACER EL UPDATE EN base de datos
+router.put('/quizes/:idpregunta(\\d+)', quizController.update);
+
+//get para los autores
 router.get('/author', authorsController.autores);
 
 module.exports = router;

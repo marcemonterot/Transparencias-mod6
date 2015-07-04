@@ -5,11 +5,14 @@
   <input type="button" value="Crear pregunta"
     onclick="window.location.href='/quizes/new'" />
 </form>
-<ul>
+<table align="center">
   <% for (var i=0;i<quizes.length;i++)  { %>
-    <li><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></li>
+    <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+        <td><a href="quizes/<%= quizes[i].id %>/edit"><img src='/images/wUlkU.png'
+          alt="Editar pregunta" /></a></td>
+    </tr>
   <% } %>
-<ul>
+<table>
 <br /><br />
 <input type="button" id="btnTodas" value="Todas" style="display:<%= visibilidad %>"
   onclick="window.location.href='/quizes'" />
