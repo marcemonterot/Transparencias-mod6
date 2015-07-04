@@ -84,3 +84,28 @@ exports.answer=function(req,res)
     };
 //  });
 }
+
+
+exports.new=function(req,res){
+  //creo un objeto de tipo quiz, tenemos en cuenta que se ha hecho en
+  //models.Quiz la importacion del objeto quiz
+  var quiz=models.Quiz.build(
+    { pregunta:'inserte el titulo', respuesta:'inserte la respuesta' }
+  );
+  res.render('quizes/new',{quiz:quiz});
+}
+
+exports.create=function(req,res){
+  //es el metodo para hacer la insercion
+  //recupero los parametros del body, recordemos que el name de los campos
+  //era quiz[pregunta] y quiz[respuesta]
+  //esto es posible si en el urlencoded se quita el extended:false
+  var quiz=models.Quiz.build(req.body.quiz);
+  //se llama al metodo de insercion de sequelize donde se mapean los campos
+  //con las propieades
+  quiz.save({fields:["pregunta","respuesta"]}).then(function(){
+    models.Quiz.count++;
+    //cuando se acaba redirecciona al listado de preguntas
+    res.redirect('/quizes');
+  })
+}

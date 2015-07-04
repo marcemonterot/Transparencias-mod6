@@ -30,7 +30,10 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(expressPartials());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+//se quita el extended : false para que se puedan mapear los parametros
+//de pregunta y respuesta del quiz en modo post
+//app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

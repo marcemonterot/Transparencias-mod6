@@ -34,6 +34,13 @@ router.get('/quizes/:idpregunta(\\d+)', quizController.show);
 //modificamos el middleware para que coja la respuesta a la pregunta id
 router.get('/quizes/:idpregunta(\\d+)/answer', quizController.answer);
 
+//get para pintar el formulario de creacion de la pregunta
+router.get('/quizes/new', quizController.new);
+
+//la primitiva post de REST PARA INSERTAR y para pintar la respuesta
+//de la insercion de la pregunta
+router.post('/quizes/create',quizController.create);
+
 //get para os autores
 router.get('/author', authorsController.autores);
 
