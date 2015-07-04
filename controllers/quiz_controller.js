@@ -21,8 +21,10 @@ exports.load=function(req,res,next,idpregunta){
 //una en base de datos, se dejará de usar
 exports.question=function(req,res)
 {
-  models.Quiz.findAll().success(function(quiz){
-    res.render('quizes/question',{title:'Pregunta', Titulo:quiz[0].pregunta});
+  models.Quiz.findAll().then(function(quiz){
+    res.render('quizes/question',{title:'Pregunta',
+                                  Titulo:quiz[0].pregunta,
+                                  errors:[]});
   });
 }
 
@@ -41,7 +43,7 @@ exports.index=function(req,res)
       if (models.Quiz.count===quizes.length) {
         visib='none';
       };
-      res.render('quizes/index',{quizes:quizes, visibilidad:visib});
+      res.render('quizes/index',{quizes:quizes, visibilidad:visib, errors:[]});
     });
 
 
@@ -54,7 +56,8 @@ exports.show=function(req,res)
   //el find me devuelve el objeto de base de datos
   //ya no hace falta por que hemos metido el autoload
   //models.Quiz.find(req.params.idpregunta).then(function(quiz){
-    res.render('quizes/show',{quiz:req.quiz})
+    res.render('quizes/show',{quiz:req.quiz,
+                              errors:[]})
   //});
 }
 
@@ -73,14 +76,16 @@ exports.answer=function(req,res)
                               Resultado:'Incorrecta',
                               title:'Respuesta',
                               respuestaUsu:req.query.respuesta,
-                              quiz:req.quiz});
+                              quiz:req.quiz,
+                              errors:[]});
     }
     else {
       res.render('quizes/answer',{
                               Resultado:'Correcta',
                               title:'Respuesta',
                               respuestaUsu:req.query.respuesta,
-                              quiz:req.quiz});
+                              quiz:req.quiz,
+                              errors:[]});
     };
 //  });
 }
@@ -92,7 +97,7 @@ exports.new=function(req,res){
   var quiz=models.Quiz.build(
     { pregunta:'inserte el titulo', respuesta:'inserte la respuesta' }
   );
-  res.render('quizes/new',{quiz:quiz});
+  res.render('quizes/new',{quiz:quiz, errors:[]});
 }
 
 exports.create=function(req,res){
@@ -103,9 +108,33 @@ exports.create=function(req,res){
   var quiz=models.Quiz.build(req.body.quiz);
   //se llama al metodo de insercion de sequelize donde se mapean los campos
   //con las propieades
-  quiz.save({fields:["pregunta","respuesta"]}).then(function(){
-    models.Quiz.count++;
-    //cuando se acaba redirecciona al listado de preguntas
-    res.redirect('/quizes');
-  })
+  /*quiz.validate().then(function(err){
+                  if (err)
+                  {
+                      res.render('quizes/new',{quiz:quiz, errors:err.errors});
+                  }
+                  else {
+                    quiz.save({fields:["pregunta","respuesta"]}).then(function(){
+                          models.Quiz.count++;
+                        //cuando se acaba redirecciona al listado de preguntas
+                          res.redirect('/quizes');
+                        });
+                  }
+                });*/
+    quiz
+    .validate()
+    .then(
+      function(err){
+        if (err) {
+          res.render('quizes/new', {quiz: quiz, errors: err.errors});
+        } else {
+          quiz // save: guarda en DB campos pregunta y respuesta de quiz
+          .save({fields: ["pregunta", "respuesta"]})
+          .then( function(){
+                  models.Quiz.count++;
+                  //cuando se acaba redirecciona al listado de preguntas
+                  res.redirect('/quizes')})
+        }      // res.redirect: Redirección HTTP a lista de preguntas
+      }
+    ).catch(function(error){next(error)});
 }

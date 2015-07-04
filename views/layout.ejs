@@ -20,6 +20,13 @@
           <span><a href="/author">Autor</a></span>
       </nav>
       <section class="main" id="s1">
+        <%if (errors.length>0) { %>
+          <span id='ErrorMsgs'>Corrija los errores:<br />
+          <% for (var i in errors)  { %>
+              <div><%= errors[i].message %></div>
+          <%  } %>
+          </span>
+         <% } %>
         <!-- el body es un convenio para cargar la vista que estamos renderizando-->
         <%- body %>
       </section>

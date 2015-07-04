@@ -2,7 +2,8 @@
   <input type="text" name="search" required="true"
     placeholder="Pregunta a buscar" />
   <input type="submit" id="btnBuscar" value="Buscar" />
-  <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+  <input type="button" value="Crear pregunta"
+    onclick="window.location.href='/quizes/new'" />
 </form>
 <ul>
   <% for (var i=0;i<quizes.length;i++)  { %>

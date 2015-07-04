@@ -34,8 +34,8 @@ var Quiz=sequelize.import(path.join(__dirname,'quiz'));
 
 //sincronizo la definicion del modelo con la base de datos quiz.sqlite
 //por si no esta creada la tabla o se ha actualizado
-sequelize.sync().success(function(){
-    Quiz.count().success(function(count){
+sequelize.sync().then(function(){
+    Quiz.count().then(function(count){
       console.log(count);
       Quiz.count=count;
       if (count===0){

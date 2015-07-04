@@ -17,7 +17,7 @@ router.param('idpregunta',quizController.load);
 
 //toda ruta definida en el routes tiene una accion asociada en algun controlador
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Quiz' });
+  res.render('index', { title: 'Quiz', errors:[] });
 });
 
 //get para la pregunta, accion asociada del controlador quizController es question
