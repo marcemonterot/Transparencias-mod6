@@ -47,6 +47,9 @@ router.get('/quizes/:idpregunta(\\d+)/edit', quizController.edit);
 //usamos este middleware para HACER EL UPDATE EN base de datos
 router.put('/quizes/:idpregunta(\\d+)', quizController.update);
 
+//usamos este middleware para HACER EL DELETE EN base de datos
+router.delete('/quizes/:idpregunta(\\d+)', quizController.destroy);
+
 //get para los autores
 router.get('/author', authorsController.autores);
 

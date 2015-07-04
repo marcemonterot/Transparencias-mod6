@@ -10,6 +10,13 @@
     <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
         <td><a href="quizes/<%= quizes[i].id %>/edit"><img src='/images/wUlkU.png'
           alt="Editar pregunta" /></a></td>
+        <td>
+          <form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
+            <button type="submit" onclick="return confirm('Se va a eliminar la pregunta. ¿Desea continuar?')">
+                <img src='/images/eliminar.png' alt="Eliminar pregunta" />
+            </button>
+          </form>
+        </td>
     </tr>
   <% } %>
 <table>
