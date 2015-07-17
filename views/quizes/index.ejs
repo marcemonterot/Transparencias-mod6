@@ -7,7 +7,8 @@
 </form>
 <table align="center">
   <% for (var i=0;i<quizes.length;i++)  { %>
-    <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+    <tr><td class="cssTema"><%= quizes[i].tema.toUpperCase() %></td>
+        <td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
         <td><a href="quizes/<%= quizes[i].id %>/edit"><img src='/images/wUlkU.png'
           alt="Editar pregunta" /></a></td>
         <td>

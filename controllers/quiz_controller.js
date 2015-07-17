@@ -46,7 +46,6 @@ exports.index=function(req,res)
       res.render('quizes/index',{quizes:quizes, visibilidad:visib, errors:[]});
     });
 
-
 }
 
 //esta funcion me mostrar la pregunta recuperada que se le pasa en la ur
@@ -116,7 +115,7 @@ exports.create=function(req,res){
           res.render('quizes/new', {quiz: quiz, errors: err.errors});
         } else {
           quiz // save: guarda en DB campos pregunta y respuesta de quiz
-          .save({fields: ["pregunta", "respuesta"]})
+          .save({fields: ["pregunta", "respuesta", "tema"]})
           .then( function(){
                   models.Quiz.count++;
                   //cuando se acaba redirecciona al listado de preguntas
@@ -139,6 +138,7 @@ exports.update=function(req,res){
   //autoload
   req.quiz.pregunta=req.body.quiz.pregunta;
   req.quiz.respuesta=req.body.quiz.respuesta;
+  req.quiz.tema=req.body.quiz.tema;
   //se llama al metodo de insercion de sequelize donde se mapean los campos
   //con las propieades
     req.quiz
@@ -149,7 +149,7 @@ exports.update=function(req,res){
           res.render('quizes/'+quiz.id+'/edit', {quiz: quiz, errors: err.errors});
         } else {
           req.quiz // save: guarda en DB campos pregunta y respuesta de quiz
-          .save({fields: ["pregunta", "respuesta"]})
+          .save({fields: ["pregunta", "respuesta", "tema"]})
           .then( function(){
                   //cuando se acaba redirecciona al listado de preguntas
                   res.redirect('/quizes')})

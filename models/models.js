@@ -42,11 +42,13 @@ sequelize.sync().then(function(){
         //inserta una nueva fila
         Quiz.create({
                       pregunta:'Capital de Italia',
-                      respuesta:'Roma'
+                      respuesta:'Roma',
+                      tema:'geografia'
                     });
         Quiz.create({
                       pregunta:'Capital de Portugal',
-                      respuesta:'Lisboa'
+                      respuesta:'Lisboa',
+                      tema:'geografia'
                     }).then(function(){
                       console.log('tabla creada e inicializada')
                       });
