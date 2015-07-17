@@ -1,6 +1,7 @@
 exports.autores=function(req,res){
   res.render('author',{title:'Autores',
                       autor:'Marcelino Montero Torres',
-                      imagen:'/images/rafa.png'}
+                      imagen:'/images/rafa.png',
+                      errors:[]}
             );
 }
