@@ -1,3 +1,13 @@
+//con esta funcion o middleware se controlara que el usuario esta autenticado
+exports.loginRequired=function(req,res,next){
+  if (req.session.user)  {
+    next();
+  }
+  else {
+    res.redirect('/login');
+  }
+}
+
 exports.new=function(req,res){
   //con esto se comprueba se ha habido algun error de autenticacion y se
   //mete en session para pintarlo en el formulario de logina

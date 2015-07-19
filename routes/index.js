@@ -50,20 +50,20 @@ router.get('/quizes/:idpregunta(\\d+)', quizController.show);
 router.get('/quizes/:idpregunta(\\d+)/answer', quizController.answer);
 
 //get para pintar el formulario de creacion de la pregunta
-router.get('/quizes/new', quizController.new);
+router.get('/quizes/new', sessionController.loginRequired, quizController.new);
 
 //la primitiva post de REST PARA INSERTAR y para pintar la respuesta
 //de la insercion de la pregunta
-router.post('/quizes/create',quizController.create);
+router.post('/quizes/create', sessionController.loginRequired, quizController.create);
 
 //usamos este middleware para coger la pregunta a editar
-router.get('/quizes/:idpregunta(\\d+)/edit', quizController.edit);
+router.get('/quizes/:idpregunta(\\d+)/edit', sessionController.loginRequired, quizController.edit);
 
 //usamos este middleware para HACER EL UPDATE EN base de datos
-router.put('/quizes/:idpregunta(\\d+)', quizController.update);
+router.put('/quizes/:idpregunta(\\d+)', sessionController.loginRequired, quizController.update);
 
 //usamos este middleware para HACER EL DELETE EN base de datos
-router.delete('/quizes/:idpregunta(\\d+)', quizController.destroy);
+router.delete('/quizes/:idpregunta(\\d+)', sessionController.loginRequired, quizController.destroy);
 
 //get para pintar el formulario de creacion del commentario
 router.get('/quizes/:idpregunta(\\d+)/comments/new', commentController.new);
@@ -75,9 +75,6 @@ router.post('/quizes/:idpregunta(\\d+)/comments',commentController.create);
 //usamos este middleware para HACER EL DELETE EN base de datos
 router.delete('/quizes/comments/:CommentId(\\d+)', commentController.destroy);
 
-//la primitiva post de REST PARA INSERTAR y para pintar la respuesta
-//de la insercion de la pregunta
-router.post('/quizes/create',quizController.create);
 
 //get para los autores
 router.get('/author', authorsController.autores);
