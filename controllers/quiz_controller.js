@@ -5,7 +5,14 @@ var models=require('../models/models.js');
 //asi se simplificará el codigo y meteremos el tratamiento de errores
 //unficado
 exports.load=function(req,res,next,idpregunta){
-  models.Quiz.find(idpregunta).then(function(quiz){
+  //se cambia para que recupere tambien los comentarios asociados
+  //models.Quiz.find(idpregunta).then(function(quiz){
+  models.Quiz.find(
+      {
+        where: { id: Number(idpregunta)},
+        include: [{ model: models.Comment }]
+      }
+  ).then(function(quiz){
     if (quiz)
     {
       req.quiz=quiz;

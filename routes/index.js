@@ -4,8 +4,9 @@ var express = require('express');
 var router = express.Router();
 
 //importo el quiz controller en el index que es desde donde se gestionara
-var quizController=require('../controllers/quiz_controller.js')
-var authorsController=require('../controllers/autores_controller.js')
+var quizController=require('../controllers/quiz_controller.js');
+var authorsController=require('../controllers/autores_controller.js');
+var commentController=require('../controllers/comment_controller.js');
 
 /* GET home page. */
 //renderiaza el index.ejs
@@ -14,6 +15,9 @@ var authorsController=require('../controllers/autores_controller.js')
 //si el parametro existe en la ruta ejecuta el controlador
 //se debe instalar antes de los middleware que hacen los get
 router.param('idpregunta',quizController.load);
+
+router.param('CommentId',commentController.load);
+
 
 //toda ruta definida en el routes tiene una accion asociada en algun controlador
 router.get('/', function(req, res) {
@@ -49,6 +53,20 @@ router.put('/quizes/:idpregunta(\\d+)', quizController.update);
 
 //usamos este middleware para HACER EL DELETE EN base de datos
 router.delete('/quizes/:idpregunta(\\d+)', quizController.destroy);
+
+//get para pintar el formulario de creacion del commentario
+router.get('/quizes/:idpregunta(\\d+)/comments/new', commentController.new);
+
+//la primitiva post de REST PARA INSERTAR y para pintar la respuesta
+//de la insercion del comentario
+router.post('/quizes/:idpregunta(\\d+)/comments',commentController.create);
+
+//usamos este middleware para HACER EL DELETE EN base de datos
+router.delete('/quizes/comments/:CommentId(\\d+)', commentController.destroy);
+
+//la primitiva post de REST PARA INSERTAR y para pintar la respuesta
+//de la insercion de la pregunta
+router.post('/quizes/create',quizController.create);
 
 //get para los autores
 router.get('/author', authorsController.autores);

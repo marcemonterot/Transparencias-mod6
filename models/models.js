@@ -29,8 +29,11 @@ var sequelize = new Sequelize (DB_name,user,pwd,
 
 //importo la definicion del modelo quiz.js, la tabla QUIZ
 var Quiz=sequelize.import(path.join(__dirname,'quiz'));
+//importo la definicion del modelo comment.js, la tabla COMMENT
+var Comment=sequelize.import(path.join(__dirname,'comment'));
 
-
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
 
 //sincronizo la definicion del modelo con la base de datos quiz.sqlite
 //por si no esta creada la tabla o se ha actualizado
@@ -59,3 +62,6 @@ sequelize.sync().then(function(){
 //exporto la definicion para que la puedan usar los controladores
 //actuar sobre la tabla QUIZ
 exports.Quiz=Quiz;
+//exporto la definicion para que la puedan usar los controladores
+//actuar sobre la tabla COMMENT
+exports.Comment=Comment;

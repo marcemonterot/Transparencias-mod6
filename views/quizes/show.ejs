@@ -5,3 +5,21 @@
     placeholder="Introduzca la respuesta" />
   <input type="submit" id="btnEnviar" value="Enviar" />
 </form>
+  <p><a href="/quizes/<%= quiz.id %>/comments/new">Nuevo comentarios</a></p>
+  <p><strong>Comentarios</strong></p>
+  <table>
+  <% for (comen in quiz.Comments) { %>
+    <tr>
+      <td>
+          <p>- <%= quiz.Comments[comen].texto %></p>
+      </td>
+      <td>
+        <form method="post" action="comments/<%= quiz.Comments[comen].id %>?_method=delete">
+          <button type="submit" onclick="return confirm('Se va a eliminar el comentario. ¿Desea continuar?')">
+              <img src='/images/eliminar.png' alt="Eliminar comentario" />
+          </button>
+        </form>
+      </td>
+    </tr>
+  <% } %>
+</table>

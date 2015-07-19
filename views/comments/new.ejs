@@ -1,0 +1,11 @@
+Añada el comentario:
+<p>
+  <form method="POST" action="/quizes/<%= comment.QuizId %>/comments">
+    <input type="text" value="<%=comment.texto %>"
+    name="comment[texto]" required="true">
+    <p>
+      <a href="/quizes/<%= comment.QuizId %>">Cancelar</a>
+      <input type="submit" value="Guardar"></input>
+    </p>
+  </form>
+</p>
