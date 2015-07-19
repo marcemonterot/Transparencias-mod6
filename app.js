@@ -11,6 +11,9 @@ var expressPartials = require('express-partials');
 //para encapsular los metodos PUT y DELETE sobre un POST en el action del submit
 //var connect=require('connect');
 var methodOverride = require('method-override');
+//para la gestion de sesiones, ojo que la 1.11.3 no chuta instalamos la 1.0.3
+//que es la que aparece en el curso
+var session = require('express-session');
 
 //importamos los enrutaores
 var routes = require('./routes/index');
@@ -41,6 +44,31 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //se usa el middleware para los PUT y DELETE en el POST
 app.use(methodOverride('_method'));
+
+//uso el middleware de sesiones pongo el ejemplo de la web oficial no el del curso
+app.use(session({
+  secret: 'Marce Quiz 2015',
+  resave: false,
+  saveUninitialized: true
+}));
+
+//uso esta funcion para guardar la url de redireccion una vez que se haga login
+//o logout y para guardar la cookie en el locals y que asi este disponible
+//en todas las paginas (vistas)
+app.use(function(req, res, next) {
+    //si no estamos en las paginas de login o logout guardamos la url
+    if (!req.path.match(/\/login|\/logout/)){
+      req.session.redir=req.path;
+    };
+
+    //se guarda en el locals que es como una variable estatica disponible
+    //en toda la aplicacion
+    res.locals.session=req.session;
+
+    console.log(req.session.redir);
+
+    next();
+});
 
 //instalar los enrutadores a la pagina de
 //index y a la de users. tambien se puede instalar con get

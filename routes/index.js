@@ -7,6 +7,7 @@ var router = express.Router();
 var quizController=require('../controllers/quiz_controller.js');
 var authorsController=require('../controllers/autores_controller.js');
 var commentController=require('../controllers/comment_controller.js');
+var sessionController=require('../controllers/session_controller.js');
 
 /* GET home page. */
 //renderiaza el index.ejs
@@ -23,6 +24,16 @@ router.param('CommentId',commentController.load);
 router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz', errors:[] });
 });
+
+//meto las rutas del control de session
+//get para pintar el formulario de ENTRADA DE LOGIN Y PASSWORD
+router.get('/login', sessionController.new);
+
+//la primitiva post de REST PARA CREAR LA COOKIE DE SESSION
+router.post('/login',sessionController.create);
+
+//usamos este middleware para HACER EL DELETE DE LA COOKIE DE SESSION
+router.get('/logout', sessionController.destroy);
 
 //get para la pregunta, accion asociada del controlador quizController es question
 router.get('/quizes/question', quizController.question);
