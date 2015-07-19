@@ -72,6 +72,10 @@ router.get('/quizes/:idpregunta(\\d+)/comments/new', commentController.new);
 //de la insercion del comentario
 router.post('/quizes/:idpregunta(\\d+)/comments',commentController.create);
 
+//usamos este middleware para HACER update del campo publicado
+router.put('/quizes/:idpregunta(\\d+)/comments/:CommentId(\\d+)/publish',
+            sessionController.loginRequired, commentController.publish);
+
 //usamos este middleware para HACER EL DELETE EN base de datos
 router.delete('/quizes/comments/:CommentId(\\d+)', commentController.destroy);
 

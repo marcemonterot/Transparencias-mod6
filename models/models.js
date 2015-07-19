@@ -27,6 +27,7 @@ var sequelize = new Sequelize (DB_name,user,pwd,
                                }
 );
 
+
 //importo la definicion del modelo quiz.js, la tabla QUIZ
 var Quiz=sequelize.import(path.join(__dirname,'quiz'));
 //importo la definicion del modelo comment.js, la tabla COMMENT

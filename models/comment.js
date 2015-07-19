@@ -3,6 +3,10 @@ module.exports=function(sequelize, DataTypes){
                                   texto:{
                                     type: DataTypes.STRING,
                                     validate :{notEmpty:{msg:"-> falta el comentario"}}
+                                  },
+                                  publicado:{
+                                    type: DataTypes.BOOLEAN,
+                                    dafaultValue: false
                                   }
                                 });
 };

@@ -70,3 +70,14 @@ exports.destroy=function(req,res){
       res.redirect('/quizes/'+quizid);
     }).catch(function(error){next(error)});
 }
+
+
+exports.publish=function(req,res){
+    req.comment.publicado=true;
+    req.comment // save: guarda en DB campos texto y quizID de comments
+    .save({fields: ["publicado"]})
+    .then( function(){
+            //cuando se acaba redirecciona al listado de preguntas
+            res.redirect('/quizes/'+req.params.idpregunta); })
+    .catch(function(error){next(error)});
+  };
