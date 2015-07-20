@@ -77,7 +77,8 @@ router.put('/quizes/:idpregunta(\\d+)/comments/:CommentId(\\d+)/publish',
             sessionController.loginRequired, commentController.publish);
 
 //usamos este middleware para HACER EL DELETE EN base de datos
-router.delete('/quizes/comments/:CommentId(\\d+)', commentController.destroy);
+router.delete('/quizes/comments/:CommentId(\\d+)', sessionController.loginRequired,
+commentController.destroy);
 
 
 //get para los autores
