@@ -1,6 +1,6 @@
 //con esta funcion o middleware se controlara que el usuario esta autenticado
 exports.loginRequired=function(req,res,next){
-  if (req.session.user)  {
+  if ((req.session.user) && (!req.session.autologout)) {
     next();
   }
   else {
@@ -39,6 +39,7 @@ exports.create=function(req,res){
         //si no existierá session.user no habría autenticacion
         req.session.user = {id:user.id,username:user.username};
         delete req.session.errors;
+        req.session.autologout=false;
         res.redirect(req.session.redir.toString());
     }
   });

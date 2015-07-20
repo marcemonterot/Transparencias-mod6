@@ -60,12 +60,22 @@ app.use(function(req, res, next) {
     if (!req.path.match(/\/login|\/logout/)){
       req.session.redir=req.path;
     };
+    var aux=new Date().getTime();
+    var ant = req.session.miliseconds || aux;
+    var diferencia=aux-ant;
+
+    req.session.miliseconds=aux;
+
+    if ((req.session.user) && (diferencia>=(2*60*1000)))
+    {
+      delete req.session.user;
+      req.session.autologout=true;
+      //res.redirect('/login');
+    }
 
     //se guarda en el locals que es como una variable estatica disponible
     //en toda la aplicacion
     res.locals.session=req.session;
-
-    console.log(req.session.redir);
 
     next();
 });

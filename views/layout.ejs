@@ -11,6 +11,9 @@
   <body>
     <div id="page-wrap">
       <header class="main" id="h1">
+          <% if (session.autologout) { %>
+            <span class="inactividad">Por inactividad ha perdido la sesion autentiquese de nuevo</span>
+          <% } %>
           <% if (!session.user) { %>
               <span id="spnlogin" class="right"><a href="/login">Login</a></span>
             <% }

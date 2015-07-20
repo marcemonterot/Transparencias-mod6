@@ -20,7 +20,7 @@
             <button type="submit" />Publicar</button>
           </form>
         </td>
-        <%  } %>
+      <%  } %>
       <% if (session.user) { %>
         <td>
           <form method="post" action="comments/<%= quiz.Comments[comen].id %>?_method=delete">

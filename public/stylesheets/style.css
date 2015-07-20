@@ -26,3 +26,4 @@ table				{margin-left:auto;
     				margin-right:auto;}
 img 				{border: 0}
 .cssTema         { font-weight:bold;}
+.inactividad		{border: red solid 1px; background-color: Pink; color: Red}
